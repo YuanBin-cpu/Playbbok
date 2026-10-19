@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playbook RBT Tahun 6 — Sistem Elemen Robotik</title>
+<style>
+:root{--navy:#102a43;--blue:#1769aa;--cyan:#dff6ff;--green:#dff7e8;--yellow:#fff2c6;--pink:#ffe4e9;--paper:#f5f8fc;--ink:#243b53;--muted:#627d98;--white:#fff;--line:#d9e2ec;--shadow:0 12px 32px #102a4314}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);line-height:1.6}
+header{background:linear-gradient(120deg,#102a43,#1769aa 65%,#12a594);color:white;padding:28px 18px 22px}
+.wrap{max-width:1080px;margin:auto;padding:0 16px}.topline{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.04em;font-size:.85rem;text-transform:uppercase;opacity:.9}.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;margin:14px 0}.hero p{max-width:720px;font-size:1.08rem;color:#e5f6ff}
+.pill{display:inline-block;background:#ffffff20;border:1px solid #ffffff55;border-radius:999px;padding:6px 12px;font-size:.86rem}
+main{padding:22px 0 42px}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);gap:20px;align-items:start}
+nav,.content,.card{background:white;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+nav{padding:12px;position:sticky;top:12px}nav h2{font-size:1rem;margin:8px 8px 10px}
+.navbtn{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:var(--ink);text-align:left;padding:11px 10px;border-radius:12px;cursor:pointer;font:inherit;margin:2px 0}
+.navbtn .num{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border-radius:10px;background:#edf2f7;font-weight:800}
+.navbtn.active{background:var(--cyan);color:#075985;font-weight:750}.navbtn.active .num{background:var(--blue);color:white}
+.progress{padding:12px 9px 6px;font-size:.85rem;color:var(--muted)}.track{height:8px;background:#edf2f7;border-radius:20px;overflow:hidden;margin-top:7px}.bar{height:100%;width:0;background:linear-gradient(90deg,#1769aa,#12a594);transition:width .25s}
+.content{padding:clamp(18px,4vw,34px);min-height:550px}.page{display:none}.page.active{display:block;animation:fade .22s ease}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+.eyebrow{font-weight:800;text-transform:uppercase;letter-spacing:.09em;font-size:.75rem;color:var(--blue)}h2{color:var(--navy);font-size:clamp(1.55rem,3vw,2.2rem);line-height:1.2;margin:.35em 0 .55em}h3{color:var(--navy);margin:0 0 8px}p{margin:.5em 0 1em}.lead{font-size:1.08rem;color:#486581}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{padding:18px;box-shadow:none}.card .emoji{font-size:2rem}.tint-blue{background:#f0f9ff}.tint-green{background:#f0fdf4}.tint-yellow{background:#fffbeb}.tint-pink{background:#fff1f2}
+.callout{padding:15px 17px;border-radius:14px;background:#eaf6ff;border-left:4px solid var(--blue);margin:16px 0}.callout.green{background:#ecfdf3;border-color:#16a34a}.callout.yellow{background:#fffbeb;border-color:#eab308}
+.tag{display:inline-block;border-radius:8px;padding:3px 8px;font-size:.78rem;font-weight:800;background:#eaf2ff;color:#174ea6}
+ul,ol{padding-left:1.3rem}li{margin:.35em 0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.95rem}th,td{padding:11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#eff6ff;color:#123b5d}
+.quizq{padding:16px 0;border-bottom:1px solid var(--line)}.quizq:last-child{border:0}.quizq p{font-weight:750;margin:0 0 10px}.option{display:block;border:1px solid var(--line);padding:9px 12px;border-radius:10px;margin:7px 0;cursor:pointer}.option:hover{background:#f0f9ff}.option input{margin-right:8px}.feedback{font-size:.9rem;font-weight:700;margin-top:7px}.correct{color:#15803d}.wrong{color:#b91c1c}
+button,.btn{border:0;border-radius:11px;padding:11px 16px;background:var(--blue);color:white;font-weight:750;font-size:.95rem;cursor:pointer}.secondary{background:#eaf2f8;color:var(--navy)}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
+label.field{display:block;font-weight:750;margin:12px 0 6px}input[type=text],select,textarea{width:100%;border:1px solid #bcccdc;border-radius:10px;padding:11px;font:inherit;background:white;color:var(--ink)}textarea{min-height:110px;resize:vertical}.checklist label{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.checklist input{margin-top:6px;transform:scale(1.15)}
+.robot{display:flex;align-items:center;justify-content:center;min-height:190px;background:linear-gradient(135deg,#e0f2fe,#dcfce7);border-radius:16px;margin:15px 0;font-size:5rem}
+.score{font-size:1.5rem;font-weight:850;color:var(--navy)}footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 28px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}nav{position:static}.navlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}.navbtn{font-size:.86rem;padding:8px}.navbtn .num{width:27px;height:27px;flex-basis:27px}.content{min-height:0}.grid{grid-template-columns:1fr}.hero h1{font-size:2.25rem}table{font-size:.85rem}th,td{padding:8px}}
+@media print{header,nav,.actions,footer{display:none!important}.layout{display:block}.content{box-shadow:none;border:0;padding:0}.page{display:block!important;page-break-after:always}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap hero">
+  <div class="topline"><span class="brand">RBT • Tahun 6 • Playbook Interaktif</span><span class="pill">🤖 Misi Robot Pintar</span></div>
+  <h1>Sistem Elemen Robotik</h1>
+  <p>Teroka, padankan, reka dan uji pengetahuan kamu tentang empat elemen utama sistem robotik. Selesaikan setiap misi untuk menjadi Jurutera Robot Muda!</p>
+ </div>
+</header>
+<main class="wrap">
+ <div class="layout">
+  <nav aria-label="Navigasi playbook">
+   <h2>🗺️ Peta Misi</h2>
+   <div class="navlist" id="navlist">
+    <button class="navbtn active" data-page="0"><span class="num">1</span> Kenali Robot</button>
+    <button class="navbtn" data-page="1"><span class="num">2</span> Empat Elemen</button>
+    <button class="navbtn" data-page="2"><span class="num">3</span> Detektif Robot</button>
+    <button class="navbtn" data-page="3"><span class="num">4</span> Reka Robot</button>
+    <button class="navbtn" data-page="4"><span class="num">5</span> Kuiz Cabaran</button>
+    <button class="navbtn" data-page="5"><span class="num">6</span> Refleksi & Tamat</button>
+   </div>
+   <div class="progress"><div id="progressLabel">Misi 1 daripada 6</div><div class="track"><div class="bar" id="progressBar"></div></div><div id="progressPct">0% selesai</div></div>
+   <button class="secondary" style="width:100%;margin-top:8px" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+  </nav>
+  <section class="content">
+   <article class="page active" id="page0">
+    <div class="eyebrow">Misi 01 • Penerokaan</div><h2>Kenali Robot!</h2>
+    <p class="lead">Robot ialah mesin yang direka untuk melakukan tugas tertentu secara automatik atau berdasarkan arahan manusia dan sistem kawalan.</p>
+    <div class="robot" role="img" aria-label="Ilustrasi robot comel">🤖</div>
+    <div class="grid">
+     <div class="card tint-blue"><div class="emoji">🧹</div><h3>Robot vakum</h3><p>Membantu membersihkan lantai dan mungkin mengesan halangan.</p></div>
+     <div class="card tint-green"><div class="emoji">🏭</div><h3>Lengan robot</h3><p>Membantu mengangkat, memindahkan atau memasang komponen.</p></div>
+     <div class="card tint-yellow"><div class="emoji">🚗</div><h3>Robot pengesan garisan</h3><p>Mengikuti laluan yang ditandakan dengan garisan.</p></div>
+     <div class="card tint-pink"><div class="emoji">📦</div><h3>Robot penghantar</h3><p>Membantu membawa barang di tempat tertentu.</p></div>
+    </div>
+    <div class="callout"><strong>Cabaran fikir:</strong> Bagaimanakah robot mengetahui ada objek di hadapannya? Apakah yang menyebabkan roda robot berpusing?</div>
+    <h3>Matlamat pembelajaran</h3><ul><li>Mengenal pasti empat elemen sistem robotik.</li><li>Menerangkan fungsi kuasa, kawalan, sensor dan pergerakan.</li><li>Memilih komponen yang sesuai untuk reka bentuk robot.</li><li>Mencadangkan reka bentuk robot untuk menyelesaikan masalah.</li></ul>
+    <div class="actions"><span></span><button class="next">Mulakan Misi 2 →</button></div>
+   </article>
+
+   <article class="page" id="page1">
+    <div class="eyebrow">Misi 02 • Kenali komponen</div><h2>Empat Elemen Utama Robotik</h2>
+    <p class="lead">Ingat empat kata kunci ini: <strong>Tenaga • Arahan • Mengesan • Bergerak</strong>.</p>
+    <div class="grid">
+     <div class="card tint-yellow"><div class="emoji">🔋</div><h3>1. Kuasa</h3><span class="tag">TENAGA</span><p>Membekalkan tenaga supaya komponen robot dapat beroperasi.</p><p><strong>Contoh:</strong> bateri, panel solar atau bekalan kuasa yang sesuai.</p><p><strong>Contoh situasi:</strong> robot tidak berfungsi kerana bateri habis.</p></div>
+     <div class="card tint-blue"><div class="emoji">🧠</div><h3>2. Kawalan</h3><span class="tag">ARAHAN</span><p>Memproses maklumat dan mengawal operasi berdasarkan arahan atau atur cara.</p><p><strong>Contoh:</strong> papan mikropengawal, micro:bit atau Arduino.</p><p><strong>Contoh situasi:</strong> menentukan sama ada motor perlu berhenti atau bergerak.</p></div>
+     <div class="card tint-green"><div class="emoji">📡</div><h3>3. Sensor (Penderia)</h3><span class="tag">MENGESAN</span><p>Mengesan keadaan persekitaran dan menghantar maklumat kepada sistem kawalan.</p><p><strong>Contoh:</strong> sensor jarak, cahaya, suhu, sentuhan dan pengesan garisan.</p><p><strong>Contoh situasi:</strong> mengesan halangan di hadapan robot.</p></div>
+     <div class="card tint-pink"><div class="emoji">⚙️</div><h3>4. Pergerakan</h3><span class="tag">BERGERAK</span><p>Menghasilkan gerakan atau tindakan fizikal robot.</p><p><strong>Contoh:</strong> motor elektrik, roda, gandar atau mekanisme lengan robot.</p><p><strong>Contoh situasi:</strong> motor memutarkan roda untuk membelok.</p></div>
+    </div>
+    <h3>Bezakan fungsi</h3>
+    <table><thead><tr><th>Elemen</th><th>Soalan panduan</th><th>Contoh</th></tr></thead><tbody>
+     <tr><td>Kuasa</td><td>Dari manakah tenaga datang?</td><td>Bateri</td></tr>
+     <tr><td>Kawalan</td><td>Apakah yang memproses arahan?</td><td>Papan mikropengawal</td></tr>
+     <tr><td>Sensor</td><td>Bagaimanakah robot mengesan keadaan?</td><td>Sensor ultrasonik</td></tr>
+     <tr><td>Pergerakan</td><td>Apakah yang menghasilkan gerakan?</td><td>Motor dan roda</td></tr>
+    </tbody></table>
+    <div class="callout yellow"><strong>Ingat!</strong> Sensor mengesan dan menghantar maklumat. Sistem kawalan memproses maklumat. Motor atau mekanisme pergerakan melaksanakan tindakan.</div>
+    <div class="actions"><button class="secondary prev">← Kembali</button><button class="next">Misi 3 →</button></div>
+   </article>
+
+   <article class="page" id="page2">
+    <div class="eyebrow">Misi 03 • Permainan padanan</div><h2>Jadi Detektif Robot 🕵️</h2>
+    <p class="lead">Baca fungsi di bawah dan pilih elemen robotik yang betul. Dapatkan 4 markah untuk melengkapkan misi!</p>
+    <div id="matchingQuiz"></div><button id="checkMatch">Semak jawapan</button> <button class="secondary" id="resetMatch">Cuba semula</button><div id="matchResult" aria-live="polite"></div>
+    <div class="callout green"><strong>Soalan KBAT:</strong> Jika robot mempunyai bateri, papan kawalan dan motor tetapi tiada sensor, adakah robot masih boleh bergerak?<br><strong>Panduan:</strong> Ya, jika diprogramkan untuk bergerak tanpa input sensor. Namun, robot tidak dapat bertindak balas berdasarkan maklumat sensor yang tiada.</div>
+    <div class="actions"><button class="secondary prev">← Kembali</button><button class="next">Misi 4 →</button></div>
+   </article>
+
+   <article class="page" id="page3">
+    <div class="eyebrow">Misi 04 • Cabaran jurutera</div><h2>Reka Robot Penyelesai Masalah</h2>
+    <p class="lead">Sekolah mahu robot kecil yang boleh bergerak di dalam bilik darjah dan membantu mengelakkan halangan. Reka robot kamu!</p>
+    <label class="field" for="robotName">1. Nama robot</label><input id="robotName" type="text" placeholder="Contoh: Robo Pengelak">
+    <label class="field" for="robotTask">2. Masalah yang ingin diselesaikan</label><select id="robotTask"><option>Mengelakkan halangan</option><option>Mengikut garisan</option><option>Membantu mengutip objek kecil</option><option>Membawa barang ringan</option></select>
+    <label class="field" for="robotPower">3. Sumber kuasa</label><select id="robotPower"><option>Bateri</option><option>Panel solar</option><option>Bekalan kuasa yang sesuai</option></select>
+    <label class="field" for="robotSensor">4. Sensor yang sesuai</label><select id="robotSensor"><option>Sensor ultrasonik</option><option>Sensor pengesan garisan</option><option>Sensor sentuhan</option><option>Sensor lain yang sesuai</option></select>
+    <label class="field" for="robotMove">5. Sistem pergerakan</label><select id="robotMove"><option>Motor dan roda</option><option>Motor dan lengan robot</option><option>Mekanisme pergerakan lain yang sesuai</option></select>
+    <label class="field" for="robotDescription">6. Terangkan lakaran kamu</label><textarea id="robotDescription" placeholder="Di manakah bateri, papan kawalan, sensor dan motor diletakkan? Bagaimanakah robot berfungsi?"></textarea>
+    <button id="makeSummary">Hasilkan kad reka bentuk</button> <button class="secondary" id="copySummary">Salin jawapan</button>
+    <div class="card tint-blue" style="margin-top:16px"><h3>Kad reka bentuk kamu</h3><div id="designSummary">Lengkapkan borang di atas, kemudian tekan “Hasilkan kad reka bentuk”.</div></div>
+    <div class="callout"><strong>Petua lakaran:</strong> Lukis rangka robot, labelkan bateri, papan kawalan, sensor, motor dan roda. Tambahkan anak panah untuk menunjukkan arah pergerakan.</div>
+    <div class="actions"><button class="secondary prev">← Kembali</button><button class="next">Misi 5 →</button></div>
+   </article>
+
+   <article class="page" id="page4">
+    <div class="eyebrow">Misi 05 • Uji pengetahuan</div><h2>Kuiz Cabaran Robot Pintar</h2>
+    <p class="lead">Jawab semua soalan dan tekan “Semak markah”.</p>
+    <div id="finalQuiz"></div><button id="checkFinal">Semak markah</button> <button class="secondary" id="retryFinal">Ulang kuiz</button><div id="finalResult" aria-live="polite"></div>
+    <div class="actions"><button class="secondary prev">← Kembali</button><button class="next">Misi 6 →</button></div>
+   </article>
+
+   <article class="page" id="page5">
+    <div class="eyebrow">Misi 06 • Refleksi</div><h2>Misi Selesai? 🌟</h2>
+    <p class="lead">Semak perkara yang telah kamu kuasai sebelum menamatkan playbook.</p>
+    <div class="card checklist" id="reflectionList">
+     <label><input type="checkbox"> Saya boleh menyatakan empat elemen sistem robotik.</label>
+     <label><input type="checkbox"> Saya boleh menerangkan fungsi kuasa, kawalan, sensor dan pergerakan.</label>
+     <label><input type="checkbox"> Saya boleh memilih sensor yang sesuai dengan tugas robot.</label>
+     <label><input type="checkbox"> Saya boleh melabelkan komponen pada lakaran robot.</label>
+     <label><input type="checkbox"> Saya boleh mencadangkan penambahbaikan reka bentuk.</label>
+    </div>
+    <h3>Rumusan penting</h3><div class="grid">
+     <div class="card tint-yellow"><h3>🔋 Kuasa</h3><p>Membekalkan tenaga.</p></div><div class="card tint-blue"><h3>🧠 Kawalan</h3><p>Memproses arahan dan mengawal operasi.</p></div>
+     <div class="card tint-green"><h3>📡 Sensor</h3><p>Mengesan keadaan persekitaran.</p></div><div class="card tint-pink"><h3>⚙️ Pergerakan</h3><p>Menghasilkan gerakan atau tindakan fizikal.</p></div>
+    </div>
+    <div class="callout green"><strong>Tahniah, Jurutera Robot Muda!</strong><br>Fikir • Reka • Bina • Uji • Inovasi!</div>
+    <button onclick="window.print()">🖨️ Cetak atau simpan playbook sebagai PDF</button>
+    <div class="actions"><button class="secondary prev">← Kembali</button><button id="restart">↻ Mula semula</button></div>
+   </article>
+  </section>
+ </div>
+</main>
+<footer>Playbook pengayaan RBT Tahun 6 • Sistem Elemen Robotik • Bahan pembelajaran boleh disesuaikan oleh guru.</footer>
+<script>
+const pages=[...document.querySelectorAll('.page')],tabs=[...document.querySelectorAll('.navbtn')];let current=0;const completed=new Set();
+function go(i){current=Math.max(0,Math.min(pages.length-1,i));pages.forEach((p,n)=>p.classList.toggle('active',n===current));tabs.forEach((t,n)=>t.classList.toggle('active',n===current));document.getElementById('progressLabel').textContent='Misi '+(current+1)+' daripada '+pages.length;document.getElementById('progressBar').style.width=(completed.size/pages.length*100)+'%';document.getElementById('progressPct').textContent=Math.round(completed.size/pages.length*100)+'% selesai';try{const u=new URL(location.href);u.searchParams.set('page',String(current+1));history.replaceState({},'',u.toString())}catch(e){}window.scrollTo({top:0,behavior:'smooth'});}
+tabs.forEach(t=>t.addEventListener('click',()=>go(Number(t.dataset.page))));document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',()=>{completed.add(current);go(current+1)}));document.querySelectorAll('.prev').forEach(b=>b.addEventListener('click',()=>go(current-1)));document.getElementById('restart').addEventListener('click',()=>{completed.clear();go(0);document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(x=>x.checked=false);});
+const requestedPage=Number(new URLSearchParams(location.search).get('page'));if(Number.isInteger(requestedPage)&&requestedPage>=1&&requestedPage<=pages.length)go(requestedPage-1);
+const matchQs=[
+ {q:'Membekalkan tenaga elektrik kepada komponen robot.',a:0},
+ {q:'Memproses maklumat dan mengawal operasi berdasarkan atur cara.',a:1},
+ {q:'Mengesan halangan atau perubahan persekitaran.',a:2},
+ {q:'Memutarkan roda supaya robot bergerak.',a:3}
+],elementNames=['Kuasa','Kawalan','Sensor','Pergerakan'];
+function renderMatch(){document.getElementById('matchingQuiz').innerHTML=matchQs.map((q,i)=>`<div class="quizq"><p>${i+1}. ${q.q}</p>${elementNames.map((n,j)=>`<label class="option"><input type="radio" name="m${i}" value="${j}">${n}</label>`).join('')}<div class="feedback" id="mf${i}"></div></div>`).join('');document.getElementById('matchResult').innerHTML='';}
+renderMatch();
+document.getElementById('checkMatch').addEventListener('click',()=>{let score=0;matchQs.forEach((q,i)=>{const v=document.querySelector(`input[name="m${i}"]:checked`);const f=document.getElementById('mf'+i);if(v&&Number(v.value)===q.a){score++;f.textContent='Betul!';f.className='feedback correct'}else{f.textContent='Jawapan: '+elementNames[q.a];f.className='feedback wrong'}});document.getElementById('matchResult').innerHTML=`<p class="score">Markah: ${score}/4</p>`;});
+document.getElementById('resetMatch').addEventListener('click',renderMatch);
+function buildSummary(){const v=id=>document.getElementById(id).value;document.getElementById('designSummary').innerHTML=`<strong>Nama:</strong> ${esc(v('robotName')||'Robot saya')}<br><strong>Masalah:</strong> ${esc(v('robotTask'))}<br><strong>Kuasa:</strong> ${esc(v('robotPower'))}<br><strong>Sensor:</strong> ${esc(v('robotSensor'))}<br><strong>Pergerakan:</strong> ${esc(v('robotMove'))}<br><strong>Penerangan:</strong> ${esc(v('robotDescription')||'Belum diisi')}`;}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('makeSummary').addEventListener('click',buildSummary);
+document.getElementById('copySummary').addEventListener('click',()=>{const v=id=>document.getElementById(id).value;const txt=`KAD REKA BENTUK ROBOT\nNama: ${v('robotName')}\nMasalah: ${v('robotTask')}\nKuasa: ${v('robotPower')}\nSensor: ${v('robotSensor')}\nPergerakan: ${v('robotMove')}\nPenerangan: ${v('robotDescription')}`;if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>alert('Kad reka bentuk disalin!')).catch(()=>alert(txt))}else alert(txt);});
+const finalQs=[
+ {q:'Apakah fungsi utama elemen kuasa?',o:['Mengesan halangan','Membekalkan tenaga','Memproses arahan'],a:1,why:'Kuasa membekalkan tenaga kepada komponen robot.'},
+ {q:'Komponen manakah yang mengesan jarak objek?',o:['Bateri','Motor','Sensor ultrasonik'],a:2,why:'Sensor ultrasonik boleh digunakan untuk mengesan jarak objek.'},
+ {q:'Apakah fungsi papan mikropengawal?',o:['Memproses arahan dan mengawal operasi','Menyimpan tenaga sahaja','Menggantikan semua sensor'],a:0,why:'Papan kawalan memproses maklumat berdasarkan atur cara.'},
+ {q:'Komponen manakah membantu robot bergerak?',o:['Sensor cahaya','Motor dan roda','Bateri sahaja'],a:1,why:'Motor menghasilkan gerakan dan roda membantu robot bergerak.'},
+ {q:'Apakah tindakan sistem kawalan jika sensor mengesan halangan terlalu dekat dan atur cara menyuruh robot berhenti?',o:['Robot berhenti','Bateri dicas sendiri','Sensor menjadi motor'],a:0,why:'Kawalan memproses input sensor dan memberi arahan kepada sistem pergerakan.'}
+];
+function renderFinal(){document.getElementById('finalQuiz').innerHTML=finalQs.map((q,i)=>`<div class="quizq"><p>${i+1}. ${q.q}</p>${q.o.map((o,j)=>`<label class="option"><input type="radio" name="f${i}" value="${j}">${String.fromCharCode(65+j)}. ${o}</label>`).join('')}<div class="feedback" id="ff${i}"></div></div>`).join('');document.getElementById('finalResult').innerHTML='';}
+renderFinal();
+document.getElementById('checkFinal').addEventListener('click',()=>{let score=0,answered=0;finalQs.forEach((q,i)=>{const v=document.querySelector(`input[name="f${i}"]:checked`),f=document.getElementById('ff'+i);if(v)answered++;if(v&&Number(v.value)===q.a){score++;f.textContent='Betul! '+q.why;f.className='feedback correct'}else{f.textContent='Jawapan: '+String.fromCharCode(65+q.a)+'. '+q.o[q.a]+'. '+q.why;f.className='feedback wrong'}});document.getElementById('finalResult').innerHTML=`<p class="score">Markah: ${score}/${finalQs.length}</p><p>${answered<finalQs.length?'Ada soalan belum dijawab. Semak semua jawapan kamu.':score===finalQs.length?'Hebat! Kamu menguasai asas sistem elemen robotik.':'Teruskan latihan dan cuba sekali lagi!'}</p>`;});
+document.getElementById('retryFinal').addEventListener('click',renderFinal);
+</script>
+</body>
+</html>
